@@ -95,7 +95,6 @@ export function MainNavbar() {
                 
               </div>
             </div>
-
 }
           </div>
 
