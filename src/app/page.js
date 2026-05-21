@@ -1,6 +1,7 @@
 
 import AvailableTutor from "@/components/AvailableTutor";
 import Hero from "@/components/Hero";
+import HowItWorks from "@/components/HowItWorks";
 import Image from "next/image";
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
       <main className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <Hero />
         <AvailableTutor />
+        <HowItWorks />
       </main>
     </div>
   );
