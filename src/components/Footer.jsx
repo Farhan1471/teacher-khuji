@@ -15,8 +15,8 @@ const Footer = () => {
 
                 {/* Logo and description */}
                 <div>
-                    <h1 className="text-2xl font-bold text-center md:text-left">Boi Nei</h1>
-                    <p className="text-sm text-gray-400 text-center md:text-left">Your one-stop destination for all things books. </p>
+                    <h1 className="text-2xl font-bold text-center md:text-left">MediQueue</h1>
+                    <p className="text-sm text-gray-400 text-center md:text-left">MediQueue is a tutor booking web application that allows students to register, browse tutors, and book online learning sessions based on subject and availability. </p>
                 </div>
 
                 {/* Contact */}
@@ -25,7 +25,7 @@ const Footer = () => {
                     <div className="flex flex-col items-center md:items-start text-gray-400">
                         <div className="flex gap-2 items-center">
                             <MdEmail />
-                            <p>contact@boikini.com</p>
+                            <p>contact@mediqueue.com</p>
                         </div>
 
                         <div className="flex gap-2 items-center">
@@ -49,7 +49,7 @@ const Footer = () => {
             </div>
 
             <div className="border-t border-gray-400 py-4 text-center text-gray-400 text-sm">
-                &copy; {new Date().getFullYear()} Boi Nei. All rights reserved.
+                &copy; {new Date().getFullYear()} MediQueue. All rights reserved.
             </div>
             
         </footer>
