@@ -1,3 +1,55 @@
 @import "tailwindcss";
 @import "@heroui/styles"; 
 @plugin "daisyui";
+
+html {
+	color-scheme: light;
+}
+
+html.dark {
+	color-scheme: dark;
+}
+
+body {
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.dark body {
+	background: #020617;
+	color: #e2e8f0;
+}
+
+html.dark [class*="bg-white"],
+html.dark [class*="bg-slate-50"],
+html.dark [class*="bg-slate-100"] {
+	background-color: #0f172a !important;
+}
+
+html.dark [class*="bg-white/"] {
+	background-color: rgb(15 23 42 / 0.8) !important;
+}
+
+html.dark [class*="border-slate-200"],
+html.dark [class*="border-slate-300"],
+html.dark [class*="border-white"] {
+	border-color: #334155 !important;
+}
+
+html.dark [class*="text-slate-900"],
+html.dark [class*="text-gray-900"] {
+	color: #f8fafc !important;
+}
+
+html.dark [class*="text-slate-800"],
+html.dark [class*="text-slate-700"],
+html.dark [class*="text-slate-600"],
+html.dark [class*="text-slate-500"],
+html.dark [class*="text-gray-600"],
+html.dark [class*="text-gray-500"] {
+	color: #cbd5e1 !important;
+}
+
+html.dark [class*="hover:bg-slate-50"]:hover,
+html.dark [class*="hover:bg-white"]:hover {
+	background-color: #1e293b !important;
+}

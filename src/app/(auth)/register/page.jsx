@@ -53,13 +53,12 @@ export default function Register() {
         else{
             toast.error("Something went wrong!")
         }
+    }
 
-        // if(error){
-        //     toast.error("Registration failed");
-        //     return;
-        // }
-
-        // router.push("/");
+    const handleGoogleLogin = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+        });
     }
 
     return (
@@ -77,6 +76,7 @@ export default function Register() {
 
                         <div className="space-y-4">
                             <Button
+                                onPress={handleGoogleLogin}
                                 variant="bordered"
                                 className="w-full h-12 font-bold rounded-2xl border-slate-200 hover:bg-slate-50 transition-colors gap-3"
                             >
