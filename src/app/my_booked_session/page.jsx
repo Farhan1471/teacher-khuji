@@ -4,6 +4,7 @@ import { headers } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from "@heroui/react";
+import { CancleBookingModal } from "@/components/CancleBookingModal";
 
 export default async function MyBookedSessionPage() {
     const { token } = await auth.api.getToken({
@@ -59,12 +60,14 @@ export default async function MyBookedSessionPage() {
                                     <td className="px-6 py-4 text-sm text-gray-700">{booking.studentName}</td>
                                     <td className="px-6 py-4 text-sm text-gray-700">{booking.studentEmail}</td>
                                     <td className="px-6 py-4">
-                                        <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${booking.status === 'cancelled' ? 'bg-gray-100 text-gray-700' : 'bg-green-100 text-green-800'}`}>
-                                            {booking.status === 'cancelled' ? 'Cancelled' : 'Active'}
+                                        <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                                            {booking.status}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-4 text-right">
-                                        <Button color="danger" size="sm">Cancel</Button>
+                                    <td className="px-6 py-4 text-right">                             
+                                        <CancleBookingModal 
+                                            bookingId={booking._id}
+                                        />
                                     </td>
                                 </tr>
                             ))}
