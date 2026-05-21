@@ -1,6 +1,6 @@
 'use client';
 
-import { signUp } from '@/app/lib/auth-client';
+import { authClient, signUp } from '@/app/lib/auth-client';
 import { Button, Input } from '@heroui/react';
 
 import Link from 'next/link';
@@ -13,21 +13,53 @@ export default function Register() {
 
     const router = useRouter();
 
+    const validatePassword = (value) => {
+        if (value.length < 8) {
+            return "Password must be at least 8 characters long";
+        }
+
+        if (!/[A-Z]/.test(value)) {
+            return "Password must contain at least one uppercase letter";
+        }
+
+        if (!/[0-9]/.test(value)) {
+            return "Password must contain at least one number";
+        }
+
+        return null;
+    };
+
     const handleRegister = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const registerData = Object.fromEntries(formData.entries());
 
+        const passwordError = validatePassword(registerData.password);
+
+        if (passwordError) {
+            toast.error(passwordError);
+            return;
+        }
+
         const { data, error } = await signUp.email({
             ...registerData,
         })
 
-        if(error){
-            toast.error("Registration failed");
-            return;
+
+        if(!error) {
+            await authClient.signOut()
+            router.push('/login')
+        }
+        else{
+            toast.error("Something went wrong!")
         }
 
-        router.push("/");
+        // if(error){
+        //     toast.error("Registration failed");
+        //     return;
+        // }
+
+        // router.push("/");
     }
 
     return (
@@ -39,9 +71,8 @@ export default function Register() {
 
                         <div className="text-center space-y-2 relative">
                             <h2 className="text-3xl font-black text-slate-900 tracking-tight">
-                                Join <span className="text-blue-600">Teacher Khuji</span>
+                                Register in <span className="text-blue-600">MediQueue</span>
                             </h2>
-                            <p className="text-slate-500 font-medium">Create your account to start learning</p>
                         </div>
 
                         <div className="space-y-4">
@@ -62,6 +93,7 @@ export default function Register() {
 
                         <form
                             className="space-y-6"
+                            noValidate
                             onSubmit={handleRegister}
                         >
                             <div className="space-y-2">
@@ -69,7 +101,7 @@ export default function Register() {
                                     htmlFor="name"
                                     className="text-sm font-bold text-slate-700 ml-1"
                                 >
-                                    Full Name
+                                    Name
                                 </label>
                                 <Input
                                     id="name"
@@ -136,7 +168,7 @@ export default function Register() {
                                 type="submit"
                                 className="w-full h-14 text-lg font-black rounded-2xl shadow-xl shadow-blue-600/20 group"
                             >
-                                Create Account
+                                Register
                             </Button>
                         </form>
 
@@ -147,7 +179,7 @@ export default function Register() {
                                     href="/login"
                                     className="text-blue-600 font-black hover:underline underline-offset-4 transition-all"
                                 >
-                                    Sign in
+                                    Login
                                 </Link>
                             </p>
                         </div>

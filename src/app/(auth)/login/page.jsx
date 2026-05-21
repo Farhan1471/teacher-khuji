@@ -130,7 +130,7 @@ export default function Login() {
                                 type="submit"
                                 className="w-full h-14 text-lg font-black rounded-2xl shadow-xl shadow-blue-600/20 group"
                             >
-                                Sign In
+                                LogIn
                             </Button>
                         </form>
 
