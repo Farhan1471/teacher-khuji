@@ -1,38 +1,59 @@
+import React from "react";
+import { FaGithub } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { IoIosCall } from "react-icons/io";
+import { FaAddressCard } from "react-icons/fa6";
 
 const Footer = () => {
-    return (
-        <footer className="bg-white border-t border-slate-200 py-12">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div className="flex flex-col items-center md:items-start gap-2">
-                        <span className="text-2xl font-black tracking-tighter text-blue-600">TeacherKoi</span>
-                        <p className="text-sm text-slate-500 font-medium">© 2026 TeacherKoi Inc. All rights reserved.</p>
-                    </div>
+    return(
+        <footer className="mt-10 bg-black text-gray-50">
 
-                    <div className="flex items-center gap-8 text-sm font-bold text-slate-600">
-                        <a
-                            href="#"
-                            className="hover:text-blue-600 transition-colors"
-                        >
-                            Tutors
-                        </a>
-                        <a
-                            href="#"
-                            className="hover:text-blue-600 transition-colors"
-                        >
-                            My Tutors
-                        </a>
-                        <a
-                            href="#"
-                            className="hover:text-blue-600 transition-colors"
-                        >
-                            Booked Session
-                        </a>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-8 px-4 mx-auto max-w-6xl items-center justify-items-center">
+
+                {/* Logo and description */}
+                <div>
+                    <h1 className="text-2xl font-bold text-center md:text-left">Boi Nei</h1>
+                    <p className="text-sm text-gray-400 text-center md:text-left">Your one-stop destination for all things books. </p>
+                </div>
+
+                {/* Contact */}
+                <div>
+                    <p className="font-semibold text-sm mb-2 text-center md:text-left">Contact Us</p>
+                    <div className="flex flex-col items-center md:items-start text-gray-400">
+                        <div className="flex gap-2 items-center">
+                            <MdEmail />
+                            <p>contact@boikini.com</p>
+                        </div>
+
+                        <div className="flex gap-2 items-center">
+                            <IoIosCall />
+                            <p>+8801846701079</p>
+                        </div>
+                        
+                        <div className="flex gap-2 items-center">
+                            <FaAddressCard />
+                            <p>Furomon Pahar, Rangamati</p>
+                        </div>
                     </div>
                 </div>
+
+                {/* Social Media */}
+                <div className="flex gap-3">
+                    <FaGithub />
+                    <FaLinkedin />
+                    <FaFacebook />
+                </div>
             </div>
+
+            <div className="border-t border-gray-400 py-4 text-center text-gray-400 text-sm">
+                &copy; {new Date().getFullYear()} Boi Nei. All rights reserved.
+            </div>
+            
         </footer>
-    );
-};
+    )
+}
 
 export default Footer;

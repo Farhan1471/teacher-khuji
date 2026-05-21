@@ -1,9 +1,16 @@
+import { auth } from "@/app/lib/auth";
+import BookingButton from "@/components/BookingButton";
 import { Chip } from "@heroui/react";
+import { headers } from "next/headers";
 import Image from "next/image";
 
 
-const fetchSingleTutor = async (id) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tutors/${id}`);
+const fetchSingleTutor = async (id, token) => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tutors/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
     const data = await res.json();
     return data || {};
 
@@ -11,8 +18,14 @@ const fetchSingleTutor = async (id) => {
 
 const TutorDetailPage = async ({params}) => {
     const { id } = await params;
-    const tutor = await fetchSingleTutor(id);
-    console.log(tutor);
+
+    const {token} = await auth.api.getToken({
+        headers: await headers(),
+    })
+    // console.log("Token:", token);  
+
+    const tutor = await fetchSingleTutor(id, token);
+    // console.log(tutor);
 
         const { _id, name, photo, subject, availableDays, availableTime, totalSlot, experience, teachingMode, institution, hourlyFee, location } = tutor;
 
@@ -23,9 +36,9 @@ const TutorDetailPage = async ({params}) => {
                     <div className="relative group overflow-hidden rounded-[2.5rem] shadow-2xl aspect-video">
                         <Image
                             alt="Tutor Image"
-                            className="object-cover group-hover:scale-110 transition-transform duration-700"
+                            className="object-contain transition-transform duration-700"
                             src={photo || "No Photo Available"}
-        
+
                             fill
                             unoptimized
                         />
@@ -53,18 +66,19 @@ const TutorDetailPage = async ({params}) => {
                             <p className="text-slate-700 font-medium">
                                 <strong>Instructor:</strong>  {tutor.name}
                             </p>
+                            <p><strong>Hourly Fee</strong>: <Chip color="success" variant="sopd" className="ml-2 font-semibold"> TK {tutor.hourlyFee} </Chip></p>
+
                             <div className="w-full h-px bg-slate-100"></div>
                             <ul className="space-y-3">
                                 <li><strong>Subject</strong>: {tutor.subject}</li>
                                 <li><strong>Experience</strong>: {tutor.experience} years</li>
-                                {/* <li><strong>Available Days</strong>: {tutor.availableDays.join(", ")}</li> */}
                                 <li><strong>Available Time</strong>: {tutor.availableTime}</li>
                                 <li><strong>Total Slots</strong>: {tutor.totalSlot}</li>
                                 <li><strong>Location</strong>: {tutor.location}</li>
                                 <li><strong>Institution</strong>: {tutor.institution}</li>
                             </ul>
                         </div>
-                        
+                        <BookingButton tutor={tutor} />
                     </div>
                 </div>
             </div>
