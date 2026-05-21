@@ -10,7 +10,14 @@ export default function BookingButton ({ tutor })  {
     const router = useRouter();
     const [phone, setPhone] = useState('');
 
-    console.log("Session structure:", session);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const sessionDate = tutor?.sessionStartDate ? new Date(tutor.sessionStartDate) : null;
+    if (sessionDate) {
+        sessionDate.setHours(0, 0, 0, 0);
+    }
+    const bookingNotStarted = sessionDate ? sessionDate > today : false;
+
 
     const handleConfirmBooking = async () => {
         if (!phone.trim()) {
@@ -18,8 +25,18 @@ export default function BookingButton ({ tutor })  {
             return;
         }
 
+        if (!session?.user?.id) {
+            toast.error("You must be logged in to book a session.");
+            return;
+        }
+
         if (!tutor?.totalSlot || tutor.totalSlot <= 0) {
             toast.error("No available slots left.");
+            return;
+        }
+
+        if (bookingNotStarted) {
+            toast.error("Booking is not available yet for this tutor");
             return;
         }
 
@@ -38,9 +55,6 @@ export default function BookingButton ({ tutor })  {
             tutorData: tutor,
             tutorId: tutor._id,
         };
-
-        console.log("Sending booking data:", updatedData);
-
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/booking/${tutor._id}`, {
                 method: 'PATCH',
@@ -50,8 +64,24 @@ export default function BookingButton ({ tutor })  {
                 },
                 body: JSON.stringify(updatedData),
             });
-            const data = await res.json();
-            if(!data){
+
+            const responseText = await res.text();
+            let data = null;
+
+            if (responseText) {
+                try {
+                    data = JSON.parse(responseText);
+                } catch {
+                    data = { message: responseText };
+                }
+            }
+
+            if (!res.ok) {
+                toast.error(data?.message || data?.error || "Failed to book the session. Please try again.");
+                return;
+            }
+
+            if (!data) {
                 toast.error("Failed to book the session. Please try again.");
                 return;
             }
@@ -71,7 +101,7 @@ export default function BookingButton ({ tutor })  {
                 color="primary"
                 size="lg"
                 className="w-full font-bold shadow-lg mt-4"
-                disabled={!tutor?.totalSlot || tutor.totalSlot <= 0}
+                disabled={!tutor?.totalSlot || tutor.totalSlot <= 0 || bookingNotStarted}
             >
                 Book Now
             </Button>

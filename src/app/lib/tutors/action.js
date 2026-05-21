@@ -6,18 +6,21 @@ import { auth } from "../auth";
 
 export const addTutor = async (formData) => {
   try {
-    const { token } = await auth.api.getToken({
+    const session = await auth.api.getSession({
       headers: await headers(),
     });
 
+    const userEmail = session?.user?.email;
+
     const modifiedData = Object.fromEntries(formData.entries());
+    modifiedData.addedBy = userEmail;
     console.log("Sending tutor data:", modifiedData);
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tutors`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${session.token}`,
       },
       body: JSON.stringify(modifiedData),
     });
@@ -40,29 +43,29 @@ export const addTutor = async (formData) => {
 export const handleAddTutorAction = async (formData) => {
   try {
     const data = await addTutor(formData);
-
-    if (data?.insertedId) {
-      redirect("/tutors");
-    } else {
-      throw new Error("Failed to add tutor");
-    }
+    return { success: !!data?.insertedId, data };
   } catch (error) {
     console.error("Error in handleAddTutorAction:", error);
-    throw error;
+    return { success: false, error: error.message };
   }
 };
 
 export const getMyTutors = async () => {
   try {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+
     const { token } = await auth.api.getToken({
       headers: await headers(),
     });
 
-    if (!token) {
+    const userEmail = session?.user?.email;
+    if (!token || !userEmail) {
       return [];
-    }
+    }  
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tutors`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tutors/addedBy/${userEmail}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

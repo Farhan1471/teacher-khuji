@@ -27,7 +27,7 @@ const TutorDetailPage = async ({params}) => {
     const tutor = await fetchSingleTutor(id, token);
     // console.log(tutor);
 
-        const { _id, name, photo, subject, availableDays, availableTime, totalSlot, experience, teachingMode, institution, hourlyFee, location } = tutor;
+        const { _id, name, photo, subject, availableDays, availableTime, totalSlot, experience, sessionStartDate, teachingMode, institution, hourlyFee, location } = tutor;
 
     return(
         <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
@@ -74,6 +74,7 @@ const TutorDetailPage = async ({params}) => {
                                 <li><strong>Experience</strong>: {tutor.experience} years</li>
                                 <li><strong>Available Time</strong>: {tutor.availableTime}</li>
                                 <li><strong>Total Slots</strong>: {tutor.totalSlot}</li>
+                                <li><strong>Total Slots</strong>: {tutor.sessionStartDate}</li>
                                 <li><strong>Location</strong>: {tutor.location}</li>
                                 <li><strong>Institution</strong>: {tutor.institution}</li>
                             </ul>

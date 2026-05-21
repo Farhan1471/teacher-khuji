@@ -1,9 +1,32 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
 import { handleAddTutorAction } from "../lib/tutors/action";
+import toast, { Toaster } from 'react-hot-toast';
 
 const addTutorPage = () => {
+    const router = useRouter();
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        
+        try {
+            const result = await handleAddTutorAction(formData);
+            if (result.success) {
+                toast.success('Tutor added successfully!');
+                setTimeout(() => router.push('/tutors'), 5000);
+            } else {
+                toast.error('Failed to add tutor');
+            }
+        } catch (error) {
+            toast.error('Failed to add tutor');
+        }
+    };
 
     return (
         <div className="w-full from-blue-50 to-indigo-50 min-h-screen mb-16 pt-12 px-4">
+            <Toaster position="top-right" />
             <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8">
                 <div className="mb-8">
                     <h1 className="text-4xl text-center font-bold text-gray-800 mb-2">
@@ -11,7 +34,7 @@ const addTutorPage = () => {
                     </h1>
                 </div>
 
-                <form action={handleAddTutorAction} className="flex flex-col gap-6">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                     <div className="flex flex-col gap-2">
                         <label className="font-semibold text-gray-700">Full Name</label>
                         <input name="name" type="text" placeholder="Enter your full name" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
@@ -29,7 +52,16 @@ const addTutorPage = () => {
 
                     <div className="flex flex-col gap-2">
                         <label className="font-semibold text-gray-700">Subject</label>
-                        <input name="subject" type="text" placeholder="e.g., Mathematics, English" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+                        <select name="subject" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            <option value="">Select a subject</option>
+                            <option value="Bangla">Bangla</option>
+                            <option value="English">English</option>
+                            <option value="Biology">Biology</option>
+                            <option value="Physics">Physics</option>
+                            <option value="Chemistry">Chemistry</option>
+                            <option value="Math">Math</option>
+                            <option value="ICT">ICT</option>
+                        </select>
                     </div>
 
                     <div className="flex flex-col gap-2">
