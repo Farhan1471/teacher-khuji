@@ -2,6 +2,7 @@
 import AvailableTutor from "@/components/AvailableTutor";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
+import Review from "@/components/Review";
 import Image from "next/image";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
         <Hero />
         <AvailableTutor />
         <HowItWorks />
+        <Review />
       </main>
     </div>
   );
