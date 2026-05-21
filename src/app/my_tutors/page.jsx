@@ -1,5 +1,6 @@
 import { DeleteTutorModal } from "@/components/DeleteTutorModal";
 import { getMyTutors } from "../lib/tutors/action";
+import { UpdateUserModal } from "@/components/UpdateUserModal";
 
 const myTutorsPage = async () => {
     const tutors = await getMyTutors();
@@ -66,9 +67,10 @@ const myTutorsPage = async () => {
                                                     Delete
                                                 </button>  */}
                                                 <DeleteTutorModal tutorId={tutor._id} />
-                                                <button className="text-blue-500 hover:text-blue-700 transition" title="Edit">
+                                                {/* <button className="text-blue-500 hover:text-blue-700 transition" title="Edit">
                                                     Edit
-                                                </button>
+                                                </button> */}
+                                                <UpdateUserModal tutor={tutor} />
                                             </div>
                                         </td>
                                     </tr>

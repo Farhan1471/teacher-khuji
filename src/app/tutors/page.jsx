@@ -5,26 +5,13 @@ import { BookOpen, Filter } from "lucide-react";
 import TutorsHeader from "@/components/TutorsHeader";
 import { fetchTutors } from "../lib/tutors/data";
 
-// const fetchTutors = async () => {
-//     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tutors`);
-//     const data = await res.json();
-//     return data || [];
-// };
 
-const TutorsPage = async () => {
-    const tutors = await fetchTutors();
-    console.log(tutors);
-
-    // const sParams = await searchParams;
-    // console.log(sParams);
-
-
-    // const courses = await fetchCourses(sParams?.searchTerm || "");
-
+const TutorsPage = async ({ searchParams }) => {
+  const params = await searchParams;
+  const tutors = await fetchTutors(params?.searchTerm || "");
 
     return (
         <div className="min-h-screen bg-slate-50">
-            {/* Header */}
             <TutorsHeader />
 
             <main className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
