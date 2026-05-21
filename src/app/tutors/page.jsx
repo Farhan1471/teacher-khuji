@@ -8,7 +8,11 @@ import { fetchTutors } from "../lib/tutors/data";
 
 const TutorsPage = async ({ searchParams }) => {
   const params = await searchParams;
-  const tutors = await fetchTutors(params?.searchTerm || "");
+    const tutors = await fetchTutors({
+        searchTerm: params?.searchTerm || "",
+        startDate: params?.startDate || "",
+        endDate: params?.endDate || "",
+    });
 
     return (
         <div className="min-h-screen bg-slate-50">

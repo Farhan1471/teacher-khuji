@@ -50,6 +50,7 @@ export function MainNavbar() {
             <Link href="/my_tutors" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">My Tutors</Link>
             <Link href="/my_booked_session" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">My Booked Session</Link>
           </div>
+          
 
           <div className="hidden md:flex items-center gap-4">
 

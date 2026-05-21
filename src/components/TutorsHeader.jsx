@@ -1,4 +1,5 @@
 
+import { FilterTutors } from "./FilterTutor";
 import SearchBar from "./SearchBar";
 
 const TutorsHeader = () => {
@@ -16,7 +17,10 @@ const TutorsHeader = () => {
                 </p>
 
                 <div className="max-w-2xl mx-auto pt-4">
-                    <SearchBar />
+                    <div className="space-y-4 text-left">
+                        <SearchBar />
+                        <FilterTutors />
+                    </div>
                 </div>
             </div>
         </header>

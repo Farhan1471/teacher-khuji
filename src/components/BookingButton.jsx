@@ -55,7 +55,7 @@ export default function BookingButton ({ tutor })  {
             tutorData: tutor,
             tutorId: tutor._id,
         };
-        try {
+
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/booking/${tutor._id}`, {
                 method: 'PATCH',
                 headers: {
@@ -89,10 +89,6 @@ export default function BookingButton ({ tutor })  {
             toast.success("Booking confirmed!");
             setPhone('');
             router.push('/my_booked_session');
-        } catch (error) {
-            console.error("Booking error:", error);
-            toast.error("An error occurred. Please try again.");
-        }
     }
 
     return(
