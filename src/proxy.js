@@ -11,7 +11,6 @@ export async function proxy(request) {
     if (!session && !session?.user) {
         return NextResponse.redirect(new URL('/', request.url));
     }
-    // console.log("Session:", session);
     }
  
 export const config = {

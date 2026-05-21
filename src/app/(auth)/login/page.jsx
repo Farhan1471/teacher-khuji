@@ -23,9 +23,6 @@ export default function Login() {
             const { data, error } = await signIn.email({
                 ...loginData,
             })
-
-            
-        // const { data: tokenData } = await authClient.token()
     
             if(error){
                 toast.error("Login failed");

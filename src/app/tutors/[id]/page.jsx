@@ -21,11 +21,9 @@ const TutorDetailPage = async ({params}) => {
 
     const {token} = await auth.api.getToken({
         headers: await headers(),
-    })
-    // console.log("Token:", token);  
+    }) 
 
     const tutor = await fetchSingleTutor(id, token);
-    // console.log(tutor);
 
         const { _id, name, photo, subject, availableDays, availableTime, totalSlot, experience, sessionStartDate, teachingMode, institution, hourlyFee, location } = tutor;
 

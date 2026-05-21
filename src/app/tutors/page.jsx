@@ -1,5 +1,4 @@
 import TutorsCard from "@/components/TutorsCard";
-// import { fetchCourses } from "@/lib/courses/data";
 import { Button } from "@heroui/react";
 import { BookOpen, Filter } from "lucide-react";
 import TutorsHeader from "@/components/TutorsHeader";

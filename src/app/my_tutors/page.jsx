@@ -62,14 +62,8 @@ const myTutorsPage = async () => {
                                             })}
                                         </td>
                                         <td className="px-6 py-4 text-center">
-                                            <div className="flex justify-center gap-3">
-                                                {/* <button className="text-red-500 hover:text-red-700 transition" title="Delete">
-                                                    Delete
-                                                </button>  */}
-                                                <DeleteTutorModal tutorId={tutor._id} />
-                                                {/* <button className="text-blue-500 hover:text-blue-700 transition" title="Edit">
-                                                    Edit
-                                                </button> */}
+                                            <div className="flex justify-center gap-3">                                                
+                                                <DeleteTutorModal tutorId={tutor._id} />                                               
                                                 <UpdateUserModal tutor={tutor} />
                                             </div>
                                         </td>
